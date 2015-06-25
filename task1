@@ -1,0 +1,48 @@
+
+<html>
+<head>
+    <title>Интеграция JavaScript</title>
+
+    <script type="text/javascript">
+         //   a = initialArr.reverse ()
+      // popped = initialArr.pop();
+        var initialArr = [1, 2, 3, 1, 5, 3, 4, 1];
+
+        function findDuplicates() {
+            var arr = [];
+               for (var i=1; i<initialArr.length ; i++)
+            {
+                for (var j=i-1; j >=0; j--) {
+                    if (initialArr[j] == initialArr [i]){
+                        var is_unique = true;
+                        for (var k = 0; k <arr.length; k++){
+                            if (arr [k] == initialArr [i]){
+                                is_unique = false;
+                                break;
+                            }
+                        }
+                        if (is_unique){
+                            arr.push(initialArr[i])
+                        }
+                        break;
+                    }
+
+
+                }
+            
+           }
+           return arr;
+
+        }
+        alert (findDuplicates(initialArr));
+      //  var initialArr = [1, 2, 3, 1, 5, 3, 4, 1];
+        console.log("Initial array: " + initialArr);
+        console.log("</br>");
+        console.log("Duplicate elements: "+duplicates);
+
+    </script>
+
+</head>
+<body>
+</body>
+</html>
