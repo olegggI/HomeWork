@@ -1,0 +1,44 @@
+<!--
+
+   Реализуйте функцию findDuplicates таким образом, чтобы она возвращала массив, 
+   состоящий из повоторяющихся элементов исходного массива.
+
+-->
+
+<html>
+<head>
+    <title>Интеграция JavaScript</title>
+
+    <script type="text/javascript">
+
+        function findDuplicates(arr) {
+            var result = [],
+                help = [];
+
+                for(var i = 0; i < arr.length; i++) {
+                    var currEl = arr[i];
+                    if (help.indexOf(currEl) == -1) {
+                        help.push(currEl);
+                        continue;
+                    }
+
+                    result.indexOf(currEl) == -1 || alert;
+                }
+
+                return result;
+        }
+
+        var initialArr = [1, 2, 3, 1, 5, 3, 4, 1];
+
+        var duplicates = findDuplicates(initialArr);
+
+        document.write("Initial array: " + initialArr);
+        document.write("</br>");
+        document.write("Duplicate elements: " + duplicates);
+
+    </script>
+
+</head>
+<body>
+</body>
+</html>
