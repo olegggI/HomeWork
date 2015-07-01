@@ -1,36 +1,58 @@
-<!--
-   Реализуйте функцию findDuplicates таким образом, чтобы она возвращала массив, 
-   состоящий из повоторяющихся элементов исходного массива.
--->
-
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Интеграция JavaScript</title>
-
-    <script type="text/javascript">
-    
-    var b = 1;
-    window.b == b; //true
-    
-    function firstF() {
-        var a = 1;
-        return function secF() {
-            a++;
-            return a;
-            
-        }
-    }
-    var b = firstF();
-    console.log(b); //new lexiacal enviroment obj
-    b(); //2
-    b(); //3
-    b(); //4
-    var c = b();
-    console.log(c);
-    
-    </script>
-
+    <title>Определение функций на этапе инициализации</title>
 </head>
 <body>
+    <script>
+        var utils = {
+            // добавление обработчика на событие
+            addListener: function (e, type, fn) {
+                if (typeof window.addEventListener === "function") {
+                    e.addEventListener(type, fn, false);
+                }
+                else if (typeof document.attachEvent === "function") {
+                    e.attachEvent("on" + type, fn);
+                }
+                else {
+                    e["on" + type] = fn;
+                }
+            },
+
+            // удаление обработчика с события
+            removeListener: function (e, type, fn) {
+                if (typeof window.removeEventListener === "function") {
+                    e.removeEventListener(type, fn, false);
+                }
+                else if (typeof document.detachEvent === "function") {
+                    e.detachEvent("on" + type, fn);
+                }
+                else {
+                    e["on" + type] = null;
+                }
+            }
+        };
+
+        // Реализация методов объекта utils не оптимальна, так как при каждом вызове addListener или removeListener
+        // выполняется один и тот же набор проверок.
+
+        utils.addListener(window, "load", function () {
+            var testBtn = document.getElementById("test"),
+                removeBtn = document.getElementById("removeHandler");
+
+            function say() {
+                alert("Hello world");
+            }
+
+            utils.addListener(testBtn, "click", say)
+
+            utils.addListener(removeBtn, "click", function () {
+                utils.removeListener(testBtn, "click", say);
+            })
+        });
+
+    </script>
+
+    <button id="test">Test</button>
+    <button id="removeHandler">Delete something</button>
 </body>
 </html>
