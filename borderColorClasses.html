@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Наследование через прототип ECMAScript 5</title>
+    <style type="text/css">
+        #item {
+            display: block;
+            width: 300px;
+            height: 300px;
+            border: 6px solid green;
+        }
+    </style>
+</head>
+<body>
+    <div id="item"></div>
+    <script>
+        var App = {};
+        App.ChangeStyle = function(domItem) {
+            this.element = domItem;
+        }
+        App.ChangeStyle.prototype.changeBorderColor = function(color) {
+            this.element.style.borderColor = color;
+        }
+
+        App.ChangeStyle.prototype.changeBorderWidth = function(size) {
+            this.element.style.borderWidth = size + 'px';
+        }
+
+        var obj = new App.ChangeStyle(document.getElementById('item'));
+        obj.changeBorderColor('blue');
+
+
+        App.ChildClass = function() {
+            App.ChangeStyle.apply(this, arguments);
+
+            this.element.addEventListener('click', function(e) {
+                this.style.borderColor = 'orange';
+            })
+        }
+
+        App.ChildClass.prototype = Object.create(App.ChangeStyle.prototype);
+
+        App.ChildClass.prototype.putContent = function(content) {
+            this.element.innerHTML = content;
+        }
+
+        var obj2 = new App.ChildClass(document.getElementById('item'));
+
+        obj2.changeBorderWidth(20);
+        obj2.changeBorderColor('red');
+        obj2.putContent('la la la');
+    </script>
+</body>
+</html>
